@@ -8,7 +8,7 @@ import { TfiClose } from 'react-icons/tfi';
 import Link from 'next/link';
 // import component 👇
 import Drawer from 'react-modern-drawer'
-
+import { useTranslation } from "next-i18next";
 //import styles 👇
 import 'react-modern-drawer/dist/index.css'
 
@@ -62,6 +62,14 @@ function Navigation() {
             };
         }
     });
+
+    //translations from common.json
+    const { t } = useTranslation('common');
+
+    const onLanguageChange = (language: string) => {
+        Router.replace(Router.pathname, Router.pathname, { locale: language })
+    }
+
     return (
         <Wrapper style={`w-full md:h-[80px] h-[70px] bg-blue-main md:sticky top-0 z-[500] transition-all duration-1000 ${Show && "md:-top-[80px]"}`} >
             <div className='w-full h-full flex justify-between items-center' >
@@ -77,7 +85,7 @@ function Navigation() {
                                 href={"/"}
                                 className={`font-Catamaran font-normal text-[16px] leading-[24px] cursor-pointer ${Router.pathname === "/choices" || Router.query.slug ? "text-blue-sky" : "text-white-main"} `}
                             >
-                                Home
+                                {t("Home")}
                             </Link> : <ScrollLink
                                 key={index}
                                 className={`font-Catamaran font-normal text-[16px] leading-[24px] text-white-main cursor-pointer`}
@@ -85,7 +93,7 @@ function Navigation() {
                                 spy={true}
                                 isDynamic={true}
                             >
-                                {item.Name}
+                                {t(item.Name)}
                             </ScrollLink> :
                                 <ScrollLink
                                     key={index}
@@ -94,12 +102,15 @@ function Navigation() {
                                     spy={true}
                                     isDynamic={true}
                                 >
-                                    {item.Name}
+                                    {t(item.Name)}
                                 </ScrollLink>
                         })
                     }
                 </div>
-
+                <select defaultValue={Router.locale} onChange={(e) => onLanguageChange(e.target.value)}>
+                    <option value="es">🇪🇸 Spanish</option>
+                    <option value="ar">🇸🇦 Arabic</option>
+                </select>
                 {/* Hamburger */}
                 <RxHamburgerMenu onClick={toggleDrawer} className='text-white-main text-[36px] lg:hidden block cursor-pointer' />
             </div>
@@ -128,7 +139,7 @@ function Navigation() {
                                     href={"/"}
                                     className={`font-Catamaran font-normal text-[16px] leading-[24px] tracking-[0.2rem] text-center cursor-pointer ${Router.pathname === "/choices" || Router.query.slug ? "text-blue-sky" : "text-white-main"} `}
                                 >
-                                    Home
+                                    {t("Home")}
                                 </Link> : <ScrollLink
                                     onClick={toggleDrawer}
                                     key={index}
@@ -137,7 +148,7 @@ function Navigation() {
                                     spy={true}
                                     isDynamic={true}
                                 >
-                                    {item.Name}
+                                    {t(item.Name)}
                                 </ScrollLink> :
                                     <ScrollLink
                                         onClick={toggleDrawer}
@@ -147,7 +158,7 @@ function Navigation() {
                                         spy={true}
                                         isDynamic={true}
                                     >
-                                        {item.Name}
+                                        {t(item.Name)}
                                     </ScrollLink>
                             })
                         }

@@ -2,6 +2,7 @@ import React from 'react';
 import Wrapper from '../shared/Wrapper';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from "next-i18next";
 
 const ChoicesContent = [
     {
@@ -191,6 +192,7 @@ function Hero() {
         const Choices = JSON.parse(localStorage.getItem("Choices") || "[]");
         if (!Choices || Choices?.length === 0) { localStorage.setItem("Choices", JSON.stringify(ChoicesContent)); }
     }, [])
+    const { t } = useTranslation('home');
     return (
         <>
             <Wrapper id={"home"} style='w-full md:h-[calc(100vh-80px)] h-[100vh] bg-[url("/Hero.png")] bg-cover bg-no-repeat bg-center relative' >
@@ -200,7 +202,7 @@ function Hero() {
                             <Image src={"/play nicely.png"} alt="" fill className='object-contain' />
                         </div>
                         <h1 className='font-Catamaran font-bold md:text-[52px] sm:text-[40px] text-[28px] md:leading-[96px] sm:leading-[46px] leading-[36px] text-center text-blue-main' >
-                            Healthy Discipline Program
+                            {t("Healthy Discipline Program")}
                         </h1>
                         <p className='font-Catamaran font-normal sm:text-[20px] text-[14px] md:leading-[30px] leading-[24px] text-center text-blue-off sm:mt-8 mt-4' >
                             Build your parenting skill set. Strengthen your relationship with your child.<br />
